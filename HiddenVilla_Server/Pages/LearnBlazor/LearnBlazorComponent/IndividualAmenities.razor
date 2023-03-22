@@ -1,0 +1,32 @@
+﻿@*@using Model
+@using Pages.LearnBlazor.LearnBlazorComponent
+
+ <div class="bg-light border p-2 col-5 offset-1"> 
+
+                   <h4 class="text-secondary" >Room -@room.ID  </h4>
+
+            @room.RoomName <br />
+            @room.Price.ToString("c")<br />
+                    <input type="checkbox" @bind-value="@room.IsActive" checked="@(room.IsActive?"Active":null)" /> &nbsp; Is Active <br />
+                    <span> This Room is @(room.IsActive ? "Active" : "Inactive")</span> <br />
+
+            @if (room.IsActive)
+            {
+                @foreach (var roomProp in room.RoomProp)
+                {
+                                   <p> @roomProp.Name - @roomProp.Value</p>
+                }
+            }                            
+                   <EditDeleteButton isAdmin="false" >
+
+                   </EditDeleteButton>
+               </div>
+*@
+
+
+@code {
+
+    //[Parameter]
+    //public BlazorRoom MyProperty { get; set; }
+    
+}

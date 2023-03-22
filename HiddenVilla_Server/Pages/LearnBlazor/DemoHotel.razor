@@ -1,0 +1,102 @@
+﻿@page "/DemoHotel"
+@using Model
+
+<PageTitle>Hotel Admin</PageTitle>
+
+<h3>
+    We will display hotel rooms and emenities here!
+</h3>
+
+
+
+<div class="border p-2 mt-2" style="background-color:azure" >
+
+    <h2 class="text-info" > 
+        Room List [Using Component]
+    </h2>
+    <div class="row container" >
+        @foreach (var room in RoomList)
+        {
+           <div class="bg-light border p-2 col-5"> 
+
+               <h4 class="text-secondary" >Room -@room.ID  </h4>
+
+               @room.RoomName <br />
+               @room.Price.ToString("c")<br />
+                <input type="checkbox" @bind-value="@room.IsActive" checked="@(room.IsActive?"Active":null)" /> &nbsp; Is Active <br />
+                <span> This Room is @(room.IsActive?"Active":"Inactive")</span> <br />
+
+                @if (room.IsActive)
+                {
+                  @foreach (var roomProp in room.RoomProp)
+                    {
+                       <p> @roomProp.Name - @roomProp.Value</p>
+                    }
+                }                            
+               <EditDeleteButton isAdmin="false" >
+                   
+               </EditDeleteButton>
+           </div>
+        }
+    </div>
+</div>
+
+
+
+
+
+@code
+{
+    List<BlazorRoom> RoomList = new List<BlazorRoom>();
+    List<BlazorAmenities> Amenities = new List<BlazorAmenities>();
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        RoomList.Add(new BlazorRoom()
+            {
+                ID = 30,
+                RoomName = "Villa Suite Room 1",
+                IsActive = true,
+                Price = 500,
+                RoomProp = new List<BlazorRoomProp>
+            {
+            new Model.BlazorRoomProp{ID=1,Name="Sq Ft", Value="12"},
+            new Model.BlazorRoomProp{ID=2,Name="Occupancy", Value="22"},
+            }
+            });
+
+        RoomList.Add(new BlazorRoom()
+            {
+                ID = 2,
+                RoomName = "Villa Suite Room 2",
+                IsActive = true,
+                Price = 600,
+                RoomProp = new List<BlazorRoomProp>
+            {
+            new Model.BlazorRoomProp{ID=1,Name="Sq Ft", Value="3"},
+            new Model.BlazorRoomProp{ID=2,Name="Occupancy", Value="4"},
+            }
+            });
+
+        Amenities.Add(new BlazorAmenities()
+            {
+                ID = 111,
+                Name = "Gym",
+                Description = "24x7 gym room is available",
+    
+            });
+        Amenities.Add(new BlazorAmenities()
+            {
+                ID = 112,
+                Name = "Swimming pool",
+                Description = "Pool room is open from 6am to 10pm",
+            });
+        Amenities.Add(new BlazorAmenities()
+            {
+                ID = 113,
+                Name = "Free Breakfast",
+                Description = "Enjoy free breakfast at our hotel",
+            });
+    }
+}

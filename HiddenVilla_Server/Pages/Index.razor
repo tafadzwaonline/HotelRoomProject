@@ -1,47 +1,7 @@
 ﻿@page "/"
 
-<PageTitle>Hotel Admin</PageTitle>
-
-@*<h1>Hello, world!</h1>
+<h1>Hello, world!</h1>
 
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
-*@
-<h2 class="bg-light border p-2">
-    First Room
-</h2>
-Room:@Room.RoomName <br />
-Price:@Room.Price <br />
-
-<input type="number" @bind-value="@Room.Price" @bind-value:event="oninput"/> <br />
-
-<input type="checkbox" @bind-value="@Room.IsActive" checked="@(Room.IsActive?"checked":null)" />&nbsp; IsActive <br />
-
-<span>This Room is @(Room.IsActive?"Active":"Inactive")</span> <br />
-
-<select @bind="selectedRoomProp" >
-    @foreach(var prop in Room.RoomProps)
-    {
-        <option value="@prop.Name">@prop.Name</option>
-    }
-</select>
-<span>This Room Prop selected is : @selectedRoomProp</span>
-<br />
-
-@code
-{
-    string selectedRoomProp = "";
-    Model.BlazorRoom Room = new Model.BlazorRoom()
-    {
-        ID=1,
-        RoomName ="Villa Suite",
-        IsActive=true,
-        Price = 499,
-        RoomProps = new List<Model.BlazorRoomProp>
-        {
-            new Model.BlazorRoomProp{ID=1,Name="Sq Ft", Value="100"},
-            new Model.BlazorRoomProp{ID=2,Name="Occupancy", Value="3"},
-        }
-    };
-}

@@ -10,6 +10,6 @@
 
         public bool IsActive { get; set; }
 
-        public List<BlazorRoomProp> RoomProps { get; set; }
+        public List<BlazorRoomProp> RoomProp { get; set; }
     }
 }
