@@ -7,46 +7,46 @@
     We will display hotel rooms and emenities here!
 </h3>
 
-
-
 <div class="border p-2 mt-2" style="background-color:azure" >
 
     <h2 class="text-info" > 
         Room List [Using Component]
     </h2>
+    <span>
+        Selected Rooms @SelectedRooms
+    </span>
+    <h4 class="text-info">
+        Hotel Room's
+    </h4>
     <div class="row container" >
         @foreach (var room in RoomList)
         {
-           <div class="bg-light border p-2 col-5"> 
+            <IndividualRoom OnRoomCheckBoxSelection="RoomSelectedCounterChanged" Room="@room"></IndividualRoom>
 
-               <h4 class="text-secondary" >Room -@room.ID  </h4>
+           
+        }
+        
+        <div class="col-12 mt-4">
+            <h4 class="text-info">
+                Hotel Amnities
+            </h4>
+        </div>
 
-               @room.RoomName <br />
-               @room.Price.ToString("c")<br />
-                <input type="checkbox" @bind-value="@room.IsActive" checked="@(room.IsActive?"Active":null)" /> &nbsp; Is Active <br />
-                <span> This Room is @(room.IsActive?"Active":"Inactive")</span> <br />
-
-                @if (room.IsActive)
-                {
-                  @foreach (var roomProp in room.RoomProp)
-                    {
-                       <p> @roomProp.Name - @roomProp.Value</p>
-                    }
-                }                            
-               <EditDeleteButton isAdmin="false" >
-                   
-               </EditDeleteButton>
-           </div>
+        @foreach (var amenities in Amenities)
+        {
+            <IndividualAmenities OnAmenitySelection="@AmenitySelectionChanged" Amenities="@amenities"></IndividualAmenities>
         }
     </div>
+
+   <div class="col-12">
+       <p class="text-secondary">Selected Amenity: @SelectedAmenity</p>
+   </div>
 </div>
-
-
-
-
 
 @code
 {
+    public int SelectedRooms { get; set; } = 0;
+    public string SelectedAmenity { get; set; } = "";
     List<BlazorRoom> RoomList = new List<BlazorRoom>();
     List<BlazorAmenities> Amenities = new List<BlazorAmenities>();
     protected override void OnInitialized()
@@ -98,5 +98,22 @@
                 Name = "Free Breakfast",
                 Description = "Enjoy free breakfast at our hotel",
             });
+    }
+
+    public void RoomSelectedCounterChanged(bool isSelectedRoom)
+    {
+        if (isSelectedRoom)
+        {
+            SelectedRooms++;
+        }
+        else
+        {
+            SelectedRooms--;
+        }
+    }
+
+    public void AmenitySelectionChanged(string selectedAmenity)
+    {
+        SelectedAmenity = selectedAmenity;
     }
 }
