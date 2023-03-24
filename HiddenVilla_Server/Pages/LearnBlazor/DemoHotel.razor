@@ -34,7 +34,12 @@
 
         @foreach (var amenities in Amenities)
         {
-            <IndividualAmenities OnAmenitySelection="@AmenitySelectionChanged" Amenities="@amenities"></IndividualAmenities>
+            <IndividualAmenities OnAmenitySelection="@AmenitySelectionChanged" Amenities="@amenities" >
+                <FirstFragment>#1</FirstFragment>
+                <SecondFragment>#2</SecondFragment>
+            </IndividualAmenities>
+
+          
         }
     </div>
 
@@ -46,6 +51,7 @@
 @code
 {
     public int SelectedRooms { get; set; } = 0;
+    
     public string SelectedAmenity { get; set; } = "";
     List<BlazorRoom> RoomList = new List<BlazorRoom>();
     List<BlazorAmenities> Amenities = new List<BlazorAmenities>();
@@ -116,4 +122,6 @@
     {
         SelectedAmenity = selectedAmenity;
     }
+
+
 }

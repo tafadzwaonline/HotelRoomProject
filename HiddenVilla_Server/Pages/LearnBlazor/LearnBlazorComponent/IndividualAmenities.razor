@@ -5,6 +5,7 @@
     <h4 class="text-secondary">Amenities -@Amenities.ID  </h4>
     @Amenities.Name <br />
     @Amenities.Description <br />
+    RF from Parent - @FirstFragment @SecondFragment<br />
     
  @*   <EditDeleteButton isAdmin="false">
 
@@ -26,4 +27,11 @@
     {
         await OnAmenitySelection.InvokeAsync(amenityName);
     }
+
+    [Parameter]
+    public RenderFragment FirstFragment { get; set; }
+
+    [Parameter]
+    public RenderFragment SecondFragment { get; set; }
+    
 }

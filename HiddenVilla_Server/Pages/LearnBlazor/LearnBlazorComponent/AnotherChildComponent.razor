@@ -1,0 +1,21 @@
+﻿
+<diV>
+
+    <h4 class="text-primary pt-3">Another Child Component</h4>
+    <input id="roomName" placeholder="@Placeholder" required="@Required" maxlength="@MaxLegnth" class="form-control" />
+</diV>
+
+@code {
+
+    [Parameter]
+
+    public string Placeholder { get; set; } = "Text from Parent";
+
+    [Parameter]
+
+    public string Required { get; set; } = "required";
+
+    [Parameter]
+
+    public string MaxLegnth { get; set; } = "4";
+}
