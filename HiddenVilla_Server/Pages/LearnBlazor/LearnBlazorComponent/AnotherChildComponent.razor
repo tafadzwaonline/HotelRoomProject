@@ -2,20 +2,30 @@
 <diV>
 
     <h4 class="text-primary pt-3">Another Child Component</h4>
-    <input id="roomName" placeholder="@Placeholder" required="@Required" maxlength="@MaxLegnth" class="form-control" />
+    <input id="roomName" @attributes="InputAttributes" class="form-control" />
+  @*  <GrandChildComponent MessageForGrandChild="This is the message from the child component"></GrandChildComponent>*@
+
 </diV>
 
 @code {
+    //[Parameter]
+
+    //public string Placeholder { get; set; } = "Text from Parent";
+
+    //[Parameter]
+
+    //public string Required { get; set; } = "required";
+
+    //[Parameter]
+
+    //public string MaxLegnth { get; set; } = "4";
 
     [Parameter]
 
-    public string Placeholder { get; set; } = "Text from Parent";
-
-    [Parameter]
-
-    public string Required { get; set; } = "required";
-
-    [Parameter]
-
-    public string MaxLegnth { get; set; } = "4";
+    public Dictionary<string, object> InputAttributes { get; set; } = new Dictionary<string, object>()
+    {
+        {"required", "required" },
+        {"placeholder", "Text from Parent" },
+        {"maxlength", 10 },
+    };
 }

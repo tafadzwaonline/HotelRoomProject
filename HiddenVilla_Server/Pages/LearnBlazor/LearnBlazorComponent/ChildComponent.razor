@@ -13,9 +13,11 @@
         }
             
         </div>
-        
+    <button class="btn btn-danger" @onclick="OnClickBtnMethod">Button to be Clicked!</button>
+
+    <GrandChildComponent></GrandChildComponent>
 </div>
-<button class="btn btn-danger" @onclick="OnClickBtnMethod">Button to be Clicked!</button>
+
 @code {
     [Parameter]
     public string Title { get; set; }
@@ -29,4 +31,11 @@
     [Parameter]
     
     public EventCallback <MouseEventArgs> OnClickBtnMethod { get; set; }
+
+//    [Parameter]
+
+//    public string MessageFromGrandChild { get; set; }
+
+    [CascadingParameter]
+    public string MessageForGrandChild { get; set; }
 }
