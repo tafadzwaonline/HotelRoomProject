@@ -26,13 +26,22 @@ namespace BusinessLayer.Repository
 
         public async Task<HotelRoomDTO> CreateHotelRoom(HotelRoomDTO hotelRoomDTO)
         {
-            HotelRoom hotelroom = _mapper.Map<HotelRoomDTO, HotelRoom>(hotelRoomDTO);
-            hotelroom.CreatedDate = DateTime.Now;
-            hotelroom.CreatedBy = "";
-            var addedHotelRoom = await _db.HotelRooms.AddAsync(hotelroom);
-            await _db.SaveChangesAsync();
+            try
+            {
+                HotelRoom hotelroom = _mapper.Map<HotelRoomDTO, HotelRoom>(hotelRoomDTO);
+                hotelroom.CreatedDate = DateTime.Now;   
+                hotelroom.CreatedBy = "";
+                hotelroom.UpdatedBy = "Tafadzwa";
+                var addedHotelRoom = await _db.HotelRooms.AddAsync(hotelroom);
+                await _db.SaveChangesAsync();
 
-            return _mapper.Map<HotelRoom, HotelRoomDTO>(addedHotelRoom.Entity);
+                return _mapper.Map<HotelRoom, HotelRoomDTO>(addedHotelRoom.Entity);
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
         }
 
         public async Task<int> DeleteHotelRoom(int roomId)

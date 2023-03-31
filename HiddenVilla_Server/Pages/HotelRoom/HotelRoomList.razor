@@ -1,4 +1,7 @@
 ﻿@page "/HotelRoom"
+@using Models
+@using BusinessLayer.Repository.IRepository
+@inject IHotelRoomRepository HotelRoomRepository
 
 <diV class="row mt-4">
 
@@ -12,9 +15,75 @@
         <NavLink href="HotelRoom/Create" class="btn btn-info form-control">Add New Room</NavLink>
         
     </diV>
+
+    <div class="row mt-4"> 
+
+        <div class="col-12">
+            
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                         <th>Occupancy</th>
+                         <th>Rate</th>
+                          <th>Sql Ft</th>
+                          <th>Details</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @if (HotelRooms.Any())
+                    {
+                        foreach (var room in HotelRooms)
+                        {
+                            <tr> 
+                                <td>
+                                    @room.Name
+                                </td>
+                                <td>
+                                    @room.Occupancy
+                                </td>
+                                <td>
+                                    @room.RegularRate
+                                </td>
+                                <td>
+                                    @room.SqFt
+                                </td>
+                                <td>
+                                    @room.Details
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5">
+                                No Records Found
+                            </td>
+                        </tr>
+                    }
+                    
+                </tbody>
+            </table>
+
+
+        </diV>
+    </diV>
+
         
 </diV>
 
 @code {
+    private IEnumerable<HotelRoomDTO> HotelRooms { get; set; } = new List<HotelRoomDTO>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        HotelRooms = await HotelRoomRepository.GetAllHotelRooms();
+        
+    }
 
 }
