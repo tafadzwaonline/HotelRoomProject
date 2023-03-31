@@ -1,18 +1,29 @@
-using HiddenVilla_Server;
+using DataAccess.Data;
 using HiddenVilla_Server.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using AutoMapper;
+using BusinessLayer.Repository.IRepository;
+using BusinessLayer.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
-var startup = new Startup(builder.Configuration);
-startup.ConfigureServices(builder.Services);
+
+var provider = builder.Services.BuildServiceProvider();
+var Configuration = provider.GetService<IConfiguration>();
+
+// Add services to the container.
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+               options.UseSqlServer(
+                   Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IHotelRoomRepository, HotelRoomRepository>();
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
-startup.Configure(app, builder.Environment);
-// Add services to the container.
-//builder.Services.AddRazorPages();
-//builder.Services.AddServerSideBlazor();
-//builder.Services.AddSingleton<WeatherForecastService>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

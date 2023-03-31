@@ -12,7 +12,7 @@ namespace Models
         
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Occupancy is required")]
+        [Range(1, 1000, ErrorMessage = "Occupancy must be between 1 and 1000")]
         public int Occupancy { get; set; }
 
         [Required(ErrorMessage = "Please enter a room name")]
