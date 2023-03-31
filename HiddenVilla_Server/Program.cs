@@ -1,15 +1,18 @@
+using HiddenVilla_Server;
 using HiddenVilla_Server.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+var startup = new Startup(builder.Configuration);
+startup.ConfigureServices(builder.Services);
 
 var app = builder.Build();
+startup.Configure(app, builder.Environment);
+// Add services to the container.
+//builder.Services.AddRazorPages();
+//builder.Services.AddServerSideBlazor();
+//builder.Services.AddSingleton<WeatherForecastService>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
