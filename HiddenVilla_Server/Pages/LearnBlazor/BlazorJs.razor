@@ -1,0 +1,44 @@
+﻿@page "/BlazorJs"
+@inject IJSRuntime JSRuntime
+
+<h3>BlazorJs</h3>
+
+<div class="row">
+        <button class="btn btn-primary" @onclick="TestConfirmBox">Click me</button>
+    <button class="btn btn-success" @onclick="TestSuccess">Toastr Success</button>
+    <button class="btn btn-danger" @onclick="TestFailed">Toastr Failed</button>
+</div>
+
+<div class="row">
+    @if (ConfrimResult)
+    {
+        <p>The button has been clicked</p>
+    }
+    else
+    {
+        <p>pending clicking</p>
+    }
+</div>
+
+@code {
+
+    private string ConfirmMesssage = "Are you sure you want to click the button?";
+    private bool ConfrimResult { get; set; }
+    private async Task TestConfirmBox()
+    {
+        ConfrimResult = await JSRuntime.InvokeAsync<bool>("confirm", ConfirmMesssage);
+       
+    }
+
+    private async Task TestSuccess()
+    {
+        await JSRuntime.InvokeVoidAsync("confirm", "success", "Success Message");
+
+    }
+    private async Task TestFailed()
+    {
+        await JSRuntime.InvokeVoidAsync("confirm", "error", "Error Message");
+
+    }
+
+}
