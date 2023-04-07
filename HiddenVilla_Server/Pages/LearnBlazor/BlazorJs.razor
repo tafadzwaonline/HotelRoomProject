@@ -1,12 +1,17 @@
 ﻿@page "/BlazorJs"
 @inject IJSRuntime JSRuntime
+@inject IToastService toastService
 
 <h3>BlazorJs</h3>
 
 <div class="row">
-        <button class="btn btn-primary" @onclick="TestConfirmBox">Click me</button>
+    <button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
+    <button class="btn btn-success" @onclick="@(() => toastService.ShowSuccess("I'm a SUCCESS message with a custom title"))">Success Toast</button>
+    <button class="btn btn-primary" @onclick="(()=>TestConfirmBox(ConfirmMesssage))">Click me</button>
     <button class="btn btn-success" @onclick="TestSuccess">Toastr Success</button>
     <button class="btn btn-danger" @onclick="TestFailed">Toastr Failed</button>
+    <button class="btn btn-success" @onclick="SwalSuccess">Test Swal Success</button>
+    <button class="btn btn-danger" @onclick="SwalError">Test Swal Failed</button>
 </div>
 
 <div class="row">
@@ -24,21 +29,40 @@
 
     private string ConfirmMesssage = "Are you sure you want to click the button?";
     private bool ConfrimResult { get; set; }
-    private async Task TestConfirmBox()
+    private async Task TestConfirmBox(string message)
     {
-        ConfrimResult = await JSRuntime.InvokeAsync<bool>("confirm", ConfirmMesssage);
-       
-    }
+        ConfrimResult = await JSRuntime.InvokeAsync<bool>("confirm", message);
 
+    }
     private async Task TestSuccess()
     {
-        await JSRuntime.InvokeVoidAsync("confirm", "success", "Success Message");
 
+        await JSRuntime.ToastrSuccess("Success Message");
     }
     private async Task TestFailed()
     {
-        await JSRuntime.InvokeVoidAsync("confirm", "error", "Error Message");
-
+        
+        await JSRuntime.ToastrError("Error Message");
     }
+    private async Task SwalSuccess()
+    {
+
+        await JSRuntime.SwalSuccess("Success Notification");
+    }
+    private async Task SwalError()
+    {
+
+        await JSRuntime.SwalError("Error Notification");
+    }
+    //private async Task TestSuccess()
+    //{
+    //    await JSRuntime.InvokeVoidAsync("ShowToastr", "success", "Success Message");
+
+    //}
+    //private async Task TestFailed()
+    //{
+    //    await JSRuntime.InvokeVoidAsync("ShowToastr", "error", "Error Message");
+
+    //}
 
 }

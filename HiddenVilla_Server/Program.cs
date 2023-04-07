@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using AutoMapper;
 using BusinessLayer.Repository.IRepository;
 using BusinessLayer.Repository;
+using Blazored.Toast;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddBlazoredToast();
 
 var app = builder.Build();
 

@@ -6,15 +6,12 @@
 <CascadingValue Value="@MessageForGrandChild" Name="MessagefromGrandparent">
 
     <CascadingValue Value="@LuckyNumberForGrandChild" Name="Numberfromgrandparent">
-         <ChildComponent OnClickBtnMethod="ShowMessage" Title="This title is passed as parameter from Parent Component">
+        <ChildComponent @ref="ChildComp" OnClickBtnMethod="ShowMessage" Title="This title is passed as parameter from Parent Component">
         
     </ChildComponent>
     </CascadingValue>
    
 </CascadingValue>
-
-
-
 <AnotherChildComponent></AnotherChildComponent>
  
 @*
@@ -25,8 +22,13 @@
 
 <p><b>@messageText</b></p>
 
+<div class="row">
+    <button class="btn btn-success" @onclick="(()=>ChildComp.ShowToastrSuccess())">Show Alert</button>
+</div>
+
 @code {
 
+    private ChildComponent ChildComp { get; set; }
     //  public Dictionary<string, object> InputAttributes { get; set; } = new Dictionary<string, object>()
     //{
     //    {"required", "required" },

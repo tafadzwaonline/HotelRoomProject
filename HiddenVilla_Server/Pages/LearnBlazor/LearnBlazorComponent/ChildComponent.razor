@@ -1,4 +1,4 @@
-﻿
+﻿@inject IJSRuntime JSRuntime
 <div>
 
     <div class="alert alert-info">@Title  </div>
@@ -27,7 +27,6 @@
     public RenderFragment ChildContent { get; set; }
 
 
-
     [Parameter]
     
     public EventCallback <MouseEventArgs> OnClickBtnMethod { get; set; }
@@ -38,4 +37,9 @@
 
     [CascadingParameter]
     public string MessageForGrandChild { get; set; }
+
+    public async Task ShowToastrSuccess()
+    {
+        await JSRuntime.ToastrSuccess("Woohoo success is on its way");
+    }
 }
