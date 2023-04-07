@@ -53,6 +53,12 @@
                                 <td>
                                     @room.Details
                                 </td>
+                                <td>
+                                    <NavLink href="@($"HotelRoom/Edit/{room.Id}")" class="btn btn-primary">Edit</NavLink>
+                                </td>
+                                <td>
+                                    <NavLink href="@($"HotelRoom/Delete/{room.Id}")" class="btn btn-danger">Delete</NavLink>
+                                </td>
                             </tr>
                         }
                     }

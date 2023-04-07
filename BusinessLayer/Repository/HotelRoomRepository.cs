@@ -91,14 +91,25 @@ namespace BusinessLayer.Repository
         }
 
         //if unique return null else return object
-        public async Task<HotelRoomDTO> IsRoomUnique(string name)
+        public async Task<HotelRoomDTO> IsRoomUnique(string name, int roomid=0)
         {
             try
             {
-                HotelRoomDTO hotelRoom = _mapper.Map<HotelRoom, HotelRoomDTO>(
-                    await _db.HotelRooms.FirstOrDefaultAsync(x => x.Name.ToLower() == name));
+                if (roomid ==0)
+                {
+                    HotelRoomDTO hotelRoom = _mapper.Map<HotelRoom, HotelRoomDTO>(
+                   await _db.HotelRooms.FirstOrDefaultAsync(x => x.Name.ToLower() == name));
 
-                return hotelRoom;
+                    return hotelRoom;
+                }
+                else
+                {
+                    HotelRoomDTO hotelRoom = _mapper.Map<HotelRoom, HotelRoomDTO>(
+                   await _db.HotelRooms.FirstOrDefaultAsync(x => x.Name.ToLower() == name && x.Id != roomid));
+
+                    return hotelRoom;
+                }
+               
 
             }
             catch (Exception ex)

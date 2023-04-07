@@ -2,13 +2,13 @@
     if (type == "success") {
         // Display a success toast, with a title
         toastr.success(message, 'Operation Successful', {
-            timeOut: 1000
+            timeOut: 3000
         })
     }
     if (type == "error") {
         // Display an error toast, with a title
         toastr.error(message, 'Operation Failed', {
-            timeOut: 1000
+            timeOut: 3000
         })
     }
 }
