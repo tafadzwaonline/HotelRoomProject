@@ -44,6 +44,9 @@
                     <ValidationMessage For="()=>HotelRoomModel.Details"></ValidationMessage>
                 </div>
                 <div class="form-group">
+                    <InputFile OnChange="HandleImageUpload" multiple></InputFile>
+                </div>
+                <div class="form-group">
                     <button class="btn btn-primary">@Title Room</button>
                     <NavLink href="HotelRoom" class="btn btn-secondary">Back To Index</NavLink>
                 </div>
@@ -64,7 +67,7 @@
     protected override async Task OnInitializedAsync()
     {
         // return base.OnInitializedAsync();
-        if (Id != null)
+        if (Id != null)  
         {
             //updating
             Title = "Update";
@@ -79,7 +82,15 @@
        
     }
 
-
+    private async Task HandleImageUpload()
+    {
+        //var file = e.File;
+        //var buffer = new byte[file.Size];
+        //await file.OpenReadStream().ReadAsync(buffer);
+        //HotelRoomModel.Picture = buffer;
+        //HotelRoomModel.PictureName = file.Name;
+        //HotelRoomModel.PictureContentType = file.ContentType;
+    }
     private async Task HandleHotelRoomUpsert()
     {
 
